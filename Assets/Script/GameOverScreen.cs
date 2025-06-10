@@ -9,6 +9,8 @@ public class GameOverScreen : MonoBehaviour
 
     void Start()
     {
+        Destroy(ScoreManager.Instance.gameObject);
+
         if (ScoreManager.hasWonLastGame)
             titleText.text = "YOU WIN!";
         else
@@ -17,11 +19,21 @@ public class GameOverScreen : MonoBehaviour
     }
     public void RestartGame()
     {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.Reset();
+        }
         Time.timeScale = 1;
         SceneManager.LoadScene("GameScene");
     }
+
     public void GoToMainMenu()
     {
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.Reset();
+            Destroy(ScoreManager.Instance.gameObject);
+        }
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
